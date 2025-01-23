@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/512/5582/5582931.png" type="image/x-icon">
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+}
+.flex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+body{
+    height: 100vh;
+    max-width: 100vw;
+    background: url(https://blog.1password.com/articles/brute-force-protect/header.png)no-repeat;
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+}
+.maincontainer{
+    background: linear-gradient(to right, #001C44,#005596);
+    /* background:transparent; */
+    backdrop-filter: blur(15px);
+    padding: 20px 50px;
+    border-radius: 20px;
+    flex-direction: column;
+    cursor: pointer;
+    h1{
+        color: #0072C6;
+        font-variant: small-caps;
+        font-size: 2.5rem;
+    }
+    span{
+       
+        color:#00BFFF ;
+        font-variant: small-caps;
+    }
+}
+.input-copy{
+
+    margin: 10px;
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+    gap: 5px;
+   button{
+    width: 40%;
+    height: 50px;
+    border-radius: 30px;
+    border: none;
+    outline: none;
+    border: 1.5px solid #fff;
+    color: #fff;
+    font-size: 1rem;
+    background: linear-gradient(to right, #001C44,#005596);
+    i{
+        color: #0072C6;
+  
+    }
+   }
+   input{
+    border: none;
+    outline: none;
+    height: 50px;
+    border-radius: 10px;
+    padding-left: 9px;
+    background: transparent;
+    border: 1.5px solid #fff;
+    color: #fff;
+   }
+   input::placeholder{
+    color: #fff;
+   }
+}
+#copybtn:hover{
+    background: #001C44;
+}
+.labels{
+    flex-direction: column;
+    gap: 7px;
+    width: 100%;
+}
+input[type="checkbox"] {
+     appearance: none; 
+    background-color: #fff;
+    border: 1px solid #ccc; 
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    border-radius:50%; 
+}
+
+
+input[type="checkbox"]:checked {
+    background-color: #005596; 
+    border: 5px solid #fff;
+
+}
+.label-input{
+    width: 100%;
+    justify-content: space-between;
+}
+#inputbox{
+    width: 100%;
+}
+#length-password{
+    width: 30px;
+    border: none;
+    outline: none;
+    padding-left: 3px;
+}
+
+input[type="number"]::-webkit-inner-spin-button, 
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+#generatebtn{
+    width: 250px;
+    height: 40px;
+    margin-top: 20px;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+   /* background-color:#00BFFF; */
+   background: transparent;
+   border: 1.5px solid #fff;
+   color: #fff;
+   font-size: 1rem;
+}
+#generatebtn:hover{
+       background-color:#00BFFF;
+       i{
+        color: green;
+       }
+}
+#newpassword{
+    width: 250px;
+    height: 40px;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    background-color:#0072C6 ;
+    border: 1.5px solid #fff;
+    color: #fff;
+    font-size: 1rem;
+    i{
+        color:#001C44;
+
+    }
+}
+#newpassword:hover{
+    i{
+        color:red;
+    }
+}
+    </style>
+</head>
+
+<body class="flex">
+    <div class="maincontainer flex">
+        <h1>Generate <br> <span>Random Password</span></h1>
+        <div class="input-copy flex">
+            <input type="text" id="inputbox" placeholder="Your Password shown here !">
+            <button id="copybtn">Copy <i class='bx bxs-copy'></i></button>
+        </div>
+        <div class="labels flex">
+            <div class="label-input flex">
+                <label> Password Length </label>
+                <input type="number" id="length-password">
+            </div>
+
+            <div class="label-input flex">
+                <label>Include Uppercase Letters</label>
+                <input type="checkbox" id="Uppercase">
+            </div>
+
+            <div class="label-input flex">
+                <label>Include Lowercase Letters </label>
+                <input type="checkbox" id="lowercase">
+            </div>
+
+            <div class="label-input flex">
+                <label>Include Numbers </label>
+                <input type="checkbox" id="numbers">
+            </div>
+
+            <div class="label-input flex">
+                <label>Include Symbols</label>
+                <input type="checkbox" id="Symbols">
+            </div>
+        </div>
+        <button id="generatebtn">Generate Password <i class='bx bxs-zap'></i> </button><br>
+        <button id="newpassword">Remove <i class='bx bxs-trash-alt'></i></button>
+    </div>
+
+
+    <script>
+        
+//select element
+const inputbox = document.getElementById("inputbox");
+const copybutton = document.getElementById('copybtn');
+const passwordlength = document.getElementById("length-password");
+const uppercasecheckbox = document.getElementById('Uppercase');
+const lowercasecheckbox = document.getElementById('lowercase');
+const numbercheckbox = document.getElementById('numbers');
+const symbolcheckbox = document.getElementById('Symbols');
+const generatebutton = document.getElementById('generatebtn');
+const newbutton = document.getElementById('newpassword');
+
+
+//charactor pool
+const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const lowercase = 'abcdefghijklmnopqrstuvwxyz';
+const number = '1234567890';
+const symbol = '!@#$%^&*()_+[]{}|;:,.<>?';
+
+//generate password
+
+
+
+function Generatepassword(){
+    let input = parseInt(passwordlength.value);
+    let charactorpool = '';
+
+    if(uppercasecheckbox.checked) charactorpool += uppercase;
+    if(lowercasecheckbox.checked) charactorpool += lowercase;
+    if(numbercheckbox.checked) charactorpool += number;
+    if(symbolcheckbox.checked) charactorpool += symbol;
+
+    if(charactorpool === ''){
+        inputbox.value = 'Please Select At least one option !';
+        return;
+    }
+    let password = '';
+    for(let i=0; i<input; i++){
+        const randomindex = Math.floor(Math.random()*charactorpool.length);
+        password += charactorpool[randomindex];
+    }
+    inputbox.value = password;
+
+}
+
+//copy password
+function copy(){
+    navigator.clipboard.writeText(inputbox.value).then(()=>{
+        alert("Password Copied to Clipboard !");
+    }).catch(()=>{
+        alert("Failed To Copy Password.");
+    });
+}
+
+function refreshpage(){
+    location.reload();
+}
+
+//addeventlistener
+generatebutton.addEventListener("click", Generatepassword ,);
+copybutton.addEventListener("click", copy);
+newbutton.addEventListener("click",refreshpage);
+    </script>
+    <!-- <script src="script.js"></script> -->
+</body>
+
+</html>
